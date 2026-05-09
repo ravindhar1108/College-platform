@@ -69,7 +69,7 @@ async function main() {
 
       await prisma.college.update({
         where: { id: college.id },
-        data: { imageUrl: imgUrl },
+        data: { image: imgUrl },
       });
       console.log(`Updated image for ${college.name}`);
     }
