@@ -1,0 +1,11 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+/src/generated/prisma
+/dataset
+college predictor tool.docx
+College_Discovery_Platform_Documentation.docx
+Indian_Engineering_Colleges_Dataset.csv
+doc1.txt
+doc2.txt
