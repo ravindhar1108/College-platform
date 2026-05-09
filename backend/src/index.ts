@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import prisma from "./prisma/client";
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Auth Routes
-app.post("/api/auth/signup", async (req, res) => {
+app.post("/api/auth/signup", async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -29,7 +29,7 @@ app.post("/api/auth/signup", async (req, res) => {
   }
 });
 
-app.post("/api/auth/login", async (req, res) => {
+app.post("/api/auth/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({ where: { email } });
@@ -44,7 +44,7 @@ app.post("/api/auth/login", async (req, res) => {
 });
 
 // College Routes
-app.get("/api/colleges", async (req, res) => {
+app.get("/api/colleges", async (req: Request, res: Response) => {
   try {
     const { search, state, minFee, maxFee, minRating, sortBy } = req.query;
 
@@ -77,11 +77,11 @@ app.get("/api/colleges", async (req, res) => {
   }
 });
 
-app.get("/api/colleges/stats", async (req, res) => {
+app.get("/api/colleges/stats", async (req: Request, res: Response) => {
   try {
     const colleges = await prisma.college.findMany();
-    const states = Array.from(new Set(colleges.map((c) => c.location)));
-    const fees = colleges.map((c) => c.ugFee);
+    const states = Array.from(new Set(colleges.map((c: any) => c.location)));
+    const fees = colleges.map((c: any) => c.ugFee);
     const minFee = fees.length > 0 ? Math.min(...fees) : 0;
     const maxFee = fees.length > 0 ? Math.max(...fees) : 0;
 
@@ -96,7 +96,7 @@ app.get("/api/colleges/stats", async (req, res) => {
   }
 });
 
-app.get("/api/colleges/:id", async (req, res) => {
+app.get("/api/colleges/:id", async (req: Request, res: Response) => {
   try {
     const college = await prisma.college.findUnique({
       where: { id: parseInt(req.params.id) },
@@ -109,7 +109,7 @@ app.get("/api/colleges/:id", async (req, res) => {
   }
 });
 
-app.post("/api/colleges/compare", async (req, res) => {
+app.post("/api/colleges/compare", async (req: Request, res: Response) => {
   try {
     const { collegeIds } = req.body;
     const colleges = await prisma.college.findMany({
