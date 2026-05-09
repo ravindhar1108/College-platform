@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { GraduationCap, Mail, Lock, User, Eye, EyeOff, Check } from "lucide-react";
+import { GraduationCap, Mail, Lock, User, Eye, EyeOff, Check, Github } from "lucide-react";
 import { toast } from "sonner";
+import { authApi } from "@/lib/api";
+import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({ meta: [{ title: "Create account — EduFind" }] }),
@@ -16,9 +18,6 @@ function strength(p: string) {
   if (/[^A-Za-z0-9]/.test(p)) s++;
   return s;
 }
-
-import { authApi } from "@/lib/api";
-import { useNavigate } from "@tanstack/react-router";
 
 function SignupForm() {
   const [show, setShow] = useState(false);
@@ -183,17 +182,6 @@ function SignupPage() {
             <Link to="/login" className="font-medium text-primary hover:underline">
               Sign in
             </Link>
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            Already have an account?{" "}
-            <Link to="/login" className="font-medium text-primary hover:underline">Sign in</Link>
           </p>
         </div>
       </div>
