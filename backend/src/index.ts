@@ -99,7 +99,7 @@ app.get("/api/colleges/stats", async (req: Request, res: Response) => {
 app.get("/api/colleges/:id", async (req: Request, res: Response) => {
   try {
     const college = await prisma.college.findUnique({
-      where: { id: parseInt(req.params.id) },
+      where: { id: parseInt(String(req.params.id)) },
       include: { courses: true, reviews: true },
     });
     if (!college) return res.status(404).json({ message: "College not found" });
