@@ -1,14 +1,16 @@
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { getRouter } from "./router";
 import "./styles.css";
 
-const queryClient = new QueryClient();
 const router = getRouter();
+// Use the same queryClient instance created in the router context
+const queryClient = router.options.context.queryClient;
 
 const rootElement = document.getElementById("root");
-if (rootElement && !rootElement.innerHTML) {
+
+if (rootElement) {
   const root = createRoot(rootElement);
   root.render(
     <QueryClientProvider client={queryClient}>
