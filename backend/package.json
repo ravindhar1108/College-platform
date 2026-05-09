@@ -2,12 +2,13 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
+
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc",
-    "start": "node dist/src/index.js",
+  "build": "tsc && prisma generate",
+  "start": "node dist/index.js",
+  "dev": "ts-node-dev src/index.ts",
     "postinstall": "prisma generate"
-  },
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
